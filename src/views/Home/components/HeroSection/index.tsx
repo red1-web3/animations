@@ -6,39 +6,61 @@ const description =
   "I’m an award winning creative developer with over 6 years experience, based in Amsterdam, the Netherlands.";
 
 const HeroSection = () => {
-  const descWrapper = useRef<HTMLDivElement>(null);
+  const descWrapper = useRef<HTMLParagraphElement>(null);
+  const sliderWrapper = useRef<HTMLImageElement>(null);
+  const ySlide = useRef<HTMLImageElement>(null);
+  const xSlide = useRef<HTMLImageElement>(null);
 
-  useEffect(() => {
-    gsap.to("._titleChars", {
-      clipPath: "inset(0 0 0 100%)",
-      autoAlpha: 0,
-      scrollTrigger: {
-        trigger: document.body,
-        start: "3% top",
-        end: "10% top",
-        scrub: 0.6,
-      },
-    });
-  }, []);
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Title
+      gsap.to("._titleChars", {
+        clipPath: "inset(0 0 0 100%)",
+        autoAlpha: 0,
+        scrollTrigger: {
+          trigger: document.body,
+          start: "3% top",
+          end: "10% top",
+          scrub: 0.6,
+        },
+      });
+
+      // Description Pin
       gsap.to("._descChars", {
         rotate: 0,
-        scale: 1,
-
+        scaleX: 1,
         autoAlpha: 1,
+        pointerEvents: "all",
+        duration: 0.5,
+        ease: "back.in",
         stagger: {
-          each: 0.2,
+          from: "edges",
+          each: 0.01,
         },
         scrollTrigger: {
           trigger: descWrapper.current,
-          start: "top 40%",
-          end: "100% top",
+          start: "top 35%",
           // markers: true,
-          scrub: 2,
           pin: true,
         },
       });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sliderWrapper.current,
+          start: "top 10%",
+          pin: true,
+          scrub: 1,
+        },
+      });
+
+      tl.to(ySlide.current, {
+        yPercent: -33.33,
+      })
+        .to(xSlide.current, {
+          xPercent: -100,
+        })
+        .to(ySlide.current, { yPercent: -67 });
     });
 
     return () => ctx.revert();
@@ -55,18 +77,18 @@ const HeroSection = () => {
           ))}
         </h2>
 
-        <div className="grid grid-cols-2 gap-x-[5vw]">
+        <div className="flex justify-between">
           <p
-            className="text-[2.5vw]/[2.7vw] mt-[1vw] text-white font-bold"
+            className="text-[2.5vw]/[2.7vw] mt-[1vw] text-white font-bold w-[45%]"
             ref={descWrapper}
           >
             {description.split("")?.map((chars, i) => {
               return (
                 <span
-                  className="_descChars inline-block opacity-0 whitespace-pre"
+                  className="_descChars inline-block opacity-0 whitespace-pre pointer-events-none"
                   key={i}
                   style={{
-                    transform: `rotate(30deg) scale(.5)`,
+                    transform: `scaleX(1.4)`,
                   }}
                 >
                   {chars}
@@ -74,15 +96,18 @@ const HeroSection = () => {
               );
             })}
           </p>
-
-          <div className="mt-[20vw]">
-            <figure className="relative flex justify-center">
-              <img
-                src={"/imgs/profile-img.jpg"}
-                alt="Profile"
-                className="w-[20vw] aspect-square object-cover object-top"
-              />
-            </figure>
+          <div
+            ref={sliderWrapper}
+            className="w-[45%] h-[80vh] cdc mt-[8vw] overflow-hidden flex flex-col"
+          >
+            <div ref={ySlide}>
+              <div className="h-[80vh] w-full bg-red-500"></div>
+              <div ref={xSlide} className="flex">
+                <div className="h-[80vh] shrink-0 w-full bg-green-500"></div>
+                <div className="h-[80vh] shrink-0 w-full bg-orange-500"></div>
+              </div>
+              <div className="h-[80vh] shrink-0 w-full bg-zinc-500"></div>
+            </div>
           </div>
         </div>
       </div>

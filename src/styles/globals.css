@@ -31,6 +31,6 @@ body {
 
 @layer components {
   ._container {
-    @apply pl-[8.4vw] pr-[7.6vw];
+    @apply pl-[8.2vw] pr-[7.5vw];
   }
 }

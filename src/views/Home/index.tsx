@@ -4,6 +4,8 @@ const Home = () => {
   return (
     <main className="pt-[20vh]">
       <HeroSection />
+
+      <div className="h-screen"></div>
       <div className="h-screen"></div>
     </main>
   );
