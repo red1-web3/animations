@@ -1,5 +1,7 @@
 import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
+import Lottie from "react-lottie-player";
+import flashBack from "../../../../../public/json/flash-black.json";
 
 const title = "Frontend  Developer";
 const description =
@@ -31,7 +33,7 @@ const HeroSection = () => {
         scaleX: 1,
         autoAlpha: 1,
         pointerEvents: "all",
-        duration: 0.5,
+        duration: 0.7,
         ease: "back.in",
         stagger: {
           from: "edges",
@@ -69,7 +71,7 @@ const HeroSection = () => {
   return (
     <section>
       <div className="_container mt-[10vh] fdfd">
-        <h2 className="text-white text-[8vw]/[8vw] font-black uppercase">
+        <h2 className="text-zinc-200 text-[8vw]/[8vw] font-black uppercase">
           {title.match(/.{1,2}/g)?.map((chars, i) => (
             <span className="_titleChars" key={i}>
               {chars}
@@ -79,7 +81,7 @@ const HeroSection = () => {
 
         <div className="flex justify-between">
           <p
-            className="text-[2.5vw]/[2.7vw] mt-[1vw] text-white font-bold w-[45%]"
+            className="text-[2.5vw]/[2.7vw] mt-[1vw] text-zinc-300 font-bold w-[45%]"
             ref={descWrapper}
           >
             {description.split("")?.map((chars, i) => {
@@ -98,15 +100,34 @@ const HeroSection = () => {
           </p>
           <div
             ref={sliderWrapper}
-            className="w-[45%] h-[80vh] cdc mt-[8vw] overflow-hidden flex flex-col"
+            className="w-[45%] h-[80vh] cdc mt-[8vw] overflow-hidden flex flex-col relative"
           >
-            <div ref={ySlide}>
-              <div className="h-[80vh] w-full bg-red-500"></div>
+            <div ref={ySlide} className="blur-md">
+              <div className="h-[80vh] w-full bg-white/10"></div>
               <div ref={xSlide} className="flex">
-                <div className="h-[80vh] shrink-0 w-full bg-green-500"></div>
-                <div className="h-[80vh] shrink-0 w-full bg-orange-500"></div>
+                <div className="h-[80vh] shrink-0 w-full bg-zinc-900/70"></div>
+                <div className="h-[80vh] shrink-0 w-full bg-white/10"></div>
               </div>
-              <div className="h-[80vh] shrink-0 w-full bg-zinc-500"></div>
+              <div className="h-[80vh] shrink-0 w-full bg-zinc-900/70"></div>
+            </div>
+            <div className="absolute inset-0 p-[2vw]">
+              <header className="flex items-center justify-between py-[1.5vw]">
+                <h3 className="text-[3vw]/[3vw] font-bold text-zinc-300">
+                  Specializing
+                </h3>
+
+                <Lottie
+                  animationData={flashBack}
+                  play
+                  speed={1}
+                  style={{ width: "5vw", height: "5vw" }}
+                />
+              </header>
+              <main>
+                <ul>
+                  <li></li>
+                </ul>
+              </main>
             </div>
           </div>
         </div>

@@ -11,8 +11,8 @@ export default function NavItems({ isNavActive }: { isNavActive: boolean }) {
           <li
             key={i}
             className={cx(
-              "text-[10vw]/[11vw] font-black text-zinc-500 uppercase ease-linear duration-300 navElements transition-[shadow_transform]",
-              isNavActive && "rise-text-shadow delay-700"
+              "text-[10vw]/[11vw] font-black text-zinc-300 uppercase ease-linear duration-300 navElements transition-[shadow_transform]",
+              isNavActive && "delay-700"
             )}
           >
             <Link href={url}>
