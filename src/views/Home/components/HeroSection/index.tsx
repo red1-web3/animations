@@ -1,9 +1,11 @@
+import ParticlesComponent from "@/components/Particles";
 import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
 import Lottie from "react-lottie-player";
 import flashBack from "../../../../../public/json/flash-black.json";
 
 const title = "Frontend  Developer";
+const name = "Redwan  Ahmed";
 const description =
   "I’m an award winning creative developer with over 6 years experience, based in Amsterdam, the Netherlands.";
 
@@ -28,9 +30,16 @@ const HeroSection = () => {
       });
 
       // Description Pin
-      gsap.to("._descChars", {
-        rotate: 0,
-        scaleX: 1,
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: descWrapper.current,
+          start: "top 35%",
+          // markers: true,
+          scrub: 1,
+          pin: true,
+        },
+      });
+      tl.to("._descChars", {
         autoAlpha: 1,
         pointerEvents: "all",
         duration: 0.7,
@@ -39,30 +48,40 @@ const HeroSection = () => {
           from: "edges",
           each: 0.01,
         },
-        scrollTrigger: {
-          trigger: descWrapper.current,
-          start: "top 35%",
-          // markers: true,
-          pin: true,
-        },
       });
 
-      const tl = gsap.timeline({
+      // Slider
+      const tl2 = gsap.timeline({
         scrollTrigger: {
           trigger: sliderWrapper.current,
-          start: "top 10%",
+          start: "top 15%",
           pin: true,
           scrub: 1,
+          // markers: true,
         },
       });
 
-      tl.to(ySlide.current, {
-        yPercent: -33.33,
-      })
+      tl2
+        .to(ySlide.current, {
+          yPercent: -33.33,
+        })
         .to(xSlide.current, {
           xPercent: -100,
         })
         .to(ySlide.current, { yPercent: -67 });
+
+      // Name Effect
+
+      gsap.to(".__nameChars", {
+        clipPath: "polygon(100% 0, 0 0, 0 100%, 100% 100%)",
+        autoAlpha: 1,
+        scrollTrigger: {
+          trigger: ".__nameChars",
+          start: "top 80%",
+          scrub: true,
+          end: "top 60%",
+        },
+      });
     });
 
     return () => ctx.revert();
@@ -89,49 +108,63 @@ const HeroSection = () => {
                 <span
                   className="_descChars inline-block opacity-0 whitespace-pre pointer-events-none"
                   key={i}
-                  style={{
-                    transform: `scaleX(1.4)`,
-                  }}
                 >
                   {chars}
                 </span>
               );
             })}
           </p>
+
           <div
             ref={sliderWrapper}
-            className="w-[45%] h-[80vh] cdc mt-[8vw] overflow-hidden flex flex-col relative"
+            className="w-[40%] h-[70vh] mt-[8vw] relative"
           >
-            <div ref={ySlide} className="blur-md">
-              <div className="h-[80vh] w-full bg-white/10"></div>
-              <div ref={xSlide} className="flex">
-                <div className="h-[80vh] shrink-0 w-full bg-zinc-900/70"></div>
-                <div className="h-[80vh] shrink-0 w-full bg-white/10"></div>
+            <div className="overflow-hidden flex flex-col relative h-full w-full">
+              <div ref={ySlide} className="blur-3xl">
+                <div className="h-[70vh] w-full bg-white/10"></div>
+                <div ref={xSlide} className="flex">
+                  <div className="h-[70vh] shrink-0 w-full bg-zinc-900/70"></div>
+                  <div className="h-[70vh] shrink-0 w-full bg-white/10"></div>
+                </div>
+                <div className="h-[70vh] shrink-0 w-full bg-zinc-900/70"></div>
               </div>
-              <div className="h-[80vh] shrink-0 w-full bg-zinc-900/70"></div>
-            </div>
-            <div className="absolute inset-0 p-[2vw]">
-              <header className="flex items-center justify-between py-[1.5vw]">
-                <h3 className="text-[3vw]/[3vw] font-bold text-zinc-300">
-                  Specializing
-                </h3>
+              <div className="absolute inset-0 px-[2vw] h-full flex flex-col">
+                <header className="flex items-center justify-end pt-[1vw]">
+                  <Lottie
+                    animationData={flashBack}
+                    play
+                    speed={1}
+                    style={{ width: "5vw", height: "5vw" }}
+                  />
+                </header>
 
-                <Lottie
-                  animationData={flashBack}
-                  play
-                  speed={1}
-                  style={{ width: "5vw", height: "5vw" }}
-                />
-              </header>
-              <main>
-                <ul>
-                  <li></li>
-                </ul>
-              </main>
+                <div>
+                  <img
+                    src="/imgs/img.png"
+                    alt=""
+                    className="saturate grayscale-0"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute bottom-0 right-0 translate-y-1/3 text-right translate-x-1/3 w-1/2">
+              <h2 className="text-[4vw]/[4vw] uppercase font-black text-zinc-200">
+                {name.match(/.{1,2}/g)?.map((chrs, i) => (
+                  <span
+                    key={i}
+                    className="__nameChars opacity-0 inline"
+                    style={{ clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)" }}
+                  >
+                    {chrs}
+                  </span>
+                ))}
+              </h2>
             </div>
           </div>
         </div>
       </div>
+      <ParticlesComponent />
     </section>
   );
 };
