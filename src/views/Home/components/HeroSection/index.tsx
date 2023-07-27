@@ -5,15 +5,16 @@ import Lottie from "react-lottie-player";
 import flashBack from "../../../../../public/json/flash-black.json";
 
 const title = "Frontend  Developer";
-const name = "Redwan  Ahmed";
+const name = "Redwan Ahmed";
 const description =
   "I’m an award winning creative developer with over 6 years experience, based in Amsterdam, the Netherlands.";
 
 const HeroSection = () => {
   const descWrapper = useRef<HTMLParagraphElement>(null);
-  const sliderWrapper = useRef<HTMLImageElement>(null);
-  const ySlide = useRef<HTMLImageElement>(null);
-  const xSlide = useRef<HTMLImageElement>(null);
+  const sliderWrapper = useRef<HTMLDivElement>(null);
+  const ySlide = useRef<HTMLDivElement>(null);
+  const xSlide = useRef<HTMLDivElement>(null);
+  const profileImage = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -79,7 +80,17 @@ const HeroSection = () => {
           trigger: ".__nameChars",
           start: "top 80%",
           scrub: true,
-          end: "top 60%",
+          end: "top 40%",
+        },
+      });
+      gsap.to(profileImage.current, {
+        autoAlpha: 1,
+        y: 0,
+        scrollTrigger: {
+          trigger: profileImage.current,
+          start: "top 80%",
+          scrub: true,
+          end: "top 40%",
         },
       });
     });
@@ -140,16 +151,17 @@ const HeroSection = () => {
 
                 <div>
                   <img
+                    ref={profileImage}
                     src="/imgs/img.png"
-                    alt=""
-                    className="saturate grayscale-0"
+                    alt="image"
+                    className="opacity-0 translate-y-1"
                   />
                 </div>
               </div>
             </div>
 
             <div className="absolute bottom-0 right-0 translate-y-1/3 text-right translate-x-1/3 w-1/2">
-              <h2 className="text-[4vw]/[4vw] uppercase font-black text-zinc-200">
+              <h2 className="text-[4vw]/[4vw] uppercase font-black text-end text-zinc-200">
                 {name.match(/.{1,2}/g)?.map((chrs, i) => (
                   <span
                     key={i}
