@@ -1,7 +1,7 @@
 export const navItems = [
   {
     label: "About",
-    url: "#",
+    url: "/about",
   },
   {
     label: "Archive",

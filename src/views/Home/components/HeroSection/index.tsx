@@ -1,4 +1,3 @@
-import ParticlesComponent from "@/components/Particles";
 import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
 import Lottie from "react-lottie-player";
@@ -10,25 +9,41 @@ const description =
   "I’m an award winning creative developer with over 6 years experience, based in Amsterdam, the Netherlands.";
 
 const HeroSection = () => {
-  const descWrapper = useRef<HTMLParagraphElement>(null);
-  const sliderWrapper = useRef<HTMLDivElement>(null);
-  const ySlide = useRef<HTMLDivElement>(null);
-  const xSlide = useRef<HTMLDivElement>(null);
-  const profileImage = useRef<HTMLImageElement>(null);
+  const descWrapper = useRef(null);
+  const sliderWrapper = useRef(null);
+  const ySlide = useRef(null);
+  const xSlide = useRef(null);
+  const profileImage = useRef(null);
+  const titleBg = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Title
-      gsap.to("._titleChars", {
-        clipPath: "inset(0 0 0 100%)",
-        autoAlpha: 0,
-        scrollTrigger: {
-          trigger: document.body,
-          start: "3% top",
-          end: "10% top",
-          scrub: 0.6,
-        },
-      });
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: document.body,
+            start: "3% top",
+            end: "10% top",
+            scrub: 0.6,
+          },
+        })
+        .to(
+          "._titleChars",
+          {
+            clipPath: "inset(0 0 0 100%)",
+            autoAlpha: 0,
+          },
+          "start"
+        )
+        .to(
+          titleBg.current,
+          {
+            height: 0,
+            autoAlpha: 0,
+          },
+          "start"
+        );
 
       // Description Pin
       const tl = gsap.timeline({
@@ -38,6 +53,9 @@ const HeroSection = () => {
           // markers: true,
           scrub: 1,
           pin: true,
+          // pinType: "transform",
+          pinSpacing: true,
+          // anticipatePin
         },
       });
       tl.to("._descChars", {
@@ -58,7 +76,6 @@ const HeroSection = () => {
           start: "top 15%",
           pin: true,
           scrub: 1,
-          // markers: true,
         },
       });
 
@@ -101,17 +118,25 @@ const HeroSection = () => {
   return (
     <section>
       <div className="_container mt-[10vh] fdfd">
-        <h2 className="text-zinc-200 text-[8vw]/[8vw] font-black uppercase">
+        <div className="text-[8vw]/[8vw] font-black uppercase inline relative">
           {title.match(/.{1,2}/g)?.map((chars, i) => (
-            <span className="_titleChars" key={i}>
+            <span
+              className="_titleChars"
+              key={i}
+              style={{ color: `hsl(${i * 100}, 60%, 50%)` }}
+            >
               {chars}
             </span>
           ))}
-        </h2>
+          <div
+            ref={titleBg}
+            className="absolute left-0 bottom-0 -translate-x-[30px] h-full z-[-1] w-[calc(100%+60px)] bg-white/10"
+          ></div>
+        </div>
 
         <div className="flex justify-between">
           <p
-            className="text-[2.5vw]/[2.7vw] mt-[1vw] text-zinc-300 font-bold w-[45%]"
+            className="text-[2.5vw]/[2.7vw] mt-[1vw] text-zinc-300 font-bold w-[45%] dssd"
             ref={descWrapper}
           >
             {description.split("")?.map((chars, i) => {
@@ -154,19 +179,21 @@ const HeroSection = () => {
                     ref={profileImage}
                     src="/imgs/img.png"
                     alt="image"
-                    className="opacity-0 translate-y-1"
+                    className="opacity-0 translate-y-1 w-[30vw]"
                   />
                 </div>
               </div>
             </div>
 
             <div className="absolute bottom-0 right-0 translate-y-1/3 text-right translate-x-1/3 w-1/2">
-              <h2 className="text-[4vw]/[4vw] uppercase font-black text-end text-zinc-200">
+              <h2 className="text-[4vw]/[4vw] uppercase font-black text-end text-zinc-300">
                 {name.match(/.{1,2}/g)?.map((chrs, i) => (
                   <span
                     key={i}
                     className="__nameChars opacity-0 inline"
-                    style={{ clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)" }}
+                    style={{
+                      clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)",
+                    }}
                   >
                     {chrs}
                   </span>
@@ -176,7 +203,7 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-      <ParticlesComponent />
+      {/* <ParticlesComponent /> */}
     </section>
   );
 };

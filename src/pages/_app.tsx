@@ -4,7 +4,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import type { AppProps } from "next/app";
 import { useEffect } from "react";
-import Particles from "react-particles";
 
 gsap.registerPlugin(ScrollTrigger);
 export default function App({ Component, pageProps }: AppProps) {
