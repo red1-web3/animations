@@ -4,7 +4,7 @@ import Lottie from "react-lottie-player";
 import flashBack from "../../../../../public/json/flash-black.json";
 
 const title = "Frontend  Developer";
-const name = "Redwan Ahmed";
+const name = "Redwan  Ahmed";
 const description =
   "I’m an award winning creative developer with over 6 years experience, based in Amsterdam, the Netherlands.";
 
@@ -186,11 +186,11 @@ const HeroSection = () => {
             </div>
 
             <div className="absolute bottom-0 right-0 translate-y-1/3 text-right translate-x-1/3 w-1/2">
-              <h2 className="text-[4vw]/[4vw] uppercase font-black text-end text-zinc-300">
+              <h2 className="text-[4vw]/[4vw] uppercase font-black text-end text-orange-500">
                 {name.match(/.{1,2}/g)?.map((chrs, i) => (
                   <span
                     key={i}
-                    className="__nameChars opacity-0 inline"
+                    className="__nameChars opacity-0 inline font-rajdani font-bold"
                     style={{
                       clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)",
                     }}

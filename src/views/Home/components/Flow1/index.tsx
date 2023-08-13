@@ -2,7 +2,7 @@ import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
 import Typewriter from "typewriter-effect";
 
-const SkillsSection = () => {
+const Flow1 = () => {
   const wrapper = useRef(null);
   const textContent = useRef(null);
 
@@ -12,7 +12,7 @@ const SkillsSection = () => {
         .timeline({
           scrollTrigger: {
             trigger: wrapper.current,
-            start: "top center",
+            start: "top 60%",
           },
         })
         .to(wrapper.current, {
@@ -30,7 +30,7 @@ const SkillsSection = () => {
 
   return (
     <section>
-      <div className="_container">
+      <div className="_container h-[60vh]">
         <div ref={wrapper} className="w-full bg-white/10 relative">
           <div
             ref={textContent}
@@ -57,4 +57,4 @@ const SkillsSection = () => {
   );
 };
 
-export default SkillsSection;
+export default Flow1;

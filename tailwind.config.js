@@ -9,7 +9,8 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       fontFamily: {
-        "inter-tight": ["Inter Tight", "sans-serif"],
+        "inter-tight": ["var(--inter-tight)"],
+        rajdani: ["var(--rajdani)"],
       },
     },
   },
